@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Achados e Perdidos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Nunito:wght@400;600;700;800&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@500&display=swap">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='17' cy='17' r='12' fill='%23f7b8d6' stroke='%231e1621' stroke-width='3'/%3E%3Cpath d='M26 26l9 9' stroke='%231e1621' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="gBlack" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#45454d"/><stop offset="1" stop-color="#141417"/></linearGradient>
+    <linearGradient id="gBlue" x1="0" x2="1"><stop offset="0" stop-color="#5a8ff5"/><stop offset=".6" stop-color="#2f5fd0"/><stop offset="1" stop-color="#1c46a8"/></linearGradient>
+    <linearGradient id="gSilver" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#eef0f4"/><stop offset=".5" stop-color="#b8bcc6"/><stop offset="1" stop-color="#8e929c"/></linearGradient>
+    <linearGradient id="gGold" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#f7e08a"/><stop offset=".55" stop-color="#d9b13b"/><stop offset="1" stop-color="#a8821f"/></linearGradient>
+    <linearGradient id="gPink" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ff9cc8"/><stop offset="1" stop-color="#e55f9f"/></linearGradient>
+    <linearGradient id="gGray" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#b3b6be"/><stop offset="1" stop-color="#8b8e97"/></linearGradient>
+    <linearGradient id="gWhite" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e3e5ea"/></linearGradient>
+    <linearGradient id="gPurple" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#9a68e6"/><stop offset="1" stop-color="#5a2ea6"/></linearGradient>
+    <radialGradient id="gBrown" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#c8935f"/><stop offset="1" stop-color="#8a5a30"/></radialGradient>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="top-in">
+    <a class="logo" href="#inicio" data-reset>
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="17" cy="17" r="12" fill="#f7b8d6" />
+        <circle cx="17" cy="17" r="12" fill="none" stroke="#fbeff6" stroke-width="3" />
+        <path d="M26 26l9 9" stroke="#fbeff6" stroke-width="4" stroke-linecap="round" />
+        <path d="M17 22.5s-5.5-3.3-5.5-6.7a3 3 0 0 1 5.5-1.6 3 3 0 0 1 5.5 1.6c0 3.4-5.5 6.7-5.5 6.7z" fill="#1e1621" />
+      </svg>
+      <b>Achados e Perdidos</b>
+    </a>
+    <nav class="nav" aria-label="Páginas">
+      <a href="#inicio" data-reset>Início</a>
+      <a href="#achados" data-reset>Objetos encontrados</a>
+      <a href="#cadastrar" data-reset>Cadastrar</a>
+      <a href="#gerenciar" data-reset>Gerenciar</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="offline" id="offline" role="alert" hidden>
+    <b>Sem conexão com o servidor.</b> Confira se o backend está rodando (<code>npm start</code>) e recarregue a página.
+  </div>
+
+  <!-- INÍCIO -->
+  <section data-view="inicio">
+    <div class="hero">
+      <div>
+        <p class="eyebrow">Sistema da escola</p>
+        <h1>Achados <span class="hl">e Perdidos</span></h1>
+        <p class="hand">Conectando pessoas aos seus pertences</p>
+        <p class="lead">Perdeu alguma coisa na escola? Procure aqui pelo nome, categoria ou lugar. Encontrou algo que não é seu? Cadastre em menos de um minuto para o dono conseguir achar.</p>
+        <div class="ctas">
+          <a class="btn primary" href="#achados" data-reset>Procure seu objeto</a>
+          <a class="btn ghost" href="#cadastrar" data-reset>Cadastre um objeto encontrado</a>
+        </div>
+      </div>
+      <div class="tag-wrap">
+        <div class="tag">
+          <span class="hole" aria-hidden="true"></span>
+          <p class="hand">Um sistema simples para um grande impacto ♡</p>
+          <div class="tag-stats" id="tagStats"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head">
+        <div>
+          <h2>Encontrados recentemente</h2>
+          <p>Os últimos objetos que ainda esperam o dono.</p>
+        </div>
+        <a class="btn soft small" href="#achados" data-reset>Ver todos os objetos</a>
+      </div>
+      <div class="grid four" id="recentGrid"></div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head">
+        <div>
+          <h2>Como o sistema funciona</h2>
+          <p>O caminho de um cadastro, do formulário até o banco de dados.</p>
+        </div>
+      </div>
+      <div class="how">
+        <ol class="steps">
+          <li><span class="num">1</span><div><b>Usuário</b><span>Preenche o formulário no site (frontend em HTML, CSS e JavaScript).</span></div></li>
+          <li><span class="num">2</span><div><b>Requisição</b><span>O JavaScript envia os dados em JSON para a API.</span></div></li>
+          <li><span class="num">3</span><div><b>Backend</b><span>Node.js + Express confere os dados e salva no banco SQLite.</span></div></li>
+          <li><span class="num">4</span><div><b>Resposta</b><span>A API devolve o resultado e o site atualiza a lista na hora.</span></div></li>
+        </ol>
+        <div class="api">
+          <h3>Endpoints (CRUD)</h3>
+          <p>Express · tabela <code>objetos</code> no SQLite</p>
+          <ul>
+            <li><span class="verb v-GET">GET</span><code>/objetos</code><small>listar</small></li>
+            <li><span class="verb v-POST">POST</span><code>/objetos</code><small>cadastrar</small></li>
+            <li><span class="verb v-PUT">PUT</span><code>/objetos/:id</code><small>atualizar</small></li>
+            <li><span class="verb v-DELETE">DELETE</span><code>/objetos/:id</code><small>excluir</small></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJETOS ENCONTRADOS -->
+  <section data-view="achados" hidden>
+    <div class="page-title">
+      <h1>Objetos encontrados</h1>
+      <p>Pesquise pelo nome ou use os filtros. Achou o seu? Clique em “Ver detalhes” para saber como retirar.</p>
+    </div>
+    <div class="filters">
+      <div class="field search-field">
+        <label for="fBusca">Buscar</label>
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.5-4.5"/></svg>
+          <input class="input" id="fBusca" type="search" placeholder="Ex.: garrafa, mochila, chave…" autocomplete="off">
+        </div>
+      </div>
+      <div class="field">
+        <label for="fCat">Categoria</label>
+        <select class="input" id="fCat"></select>
+      </div>
+      <div class="field">
+        <label for="fLocal">Local</label>
+        <select class="input" id="fLocal"></select>
+      </div>
+      <div class="field">
+        <label for="fStatus">Status</label>
+        <select class="input" id="fStatus">
+          <option value="">Todos</option>
+          <option value="disponivel">Disponível</option>
+          <option value="aguardando">Aguardando retirada</option>
+          <option value="devolvido">Devolvido</option>
+        </select>
+      </div>
+    </div>
+    <p class="result-count" id="resultCount"></p>
+    <div class="grid" id="allGrid"></div>
+  </section>
+
+  <!-- CADASTRAR -->
+  <section data-view="cadastrar" hidden>
+    <div class="page-title">
+      <h1 id="formTitle">Cadastrar objeto encontrado</h1>
+      <p id="formSub">Encontrou alguma coisa? Preencha os dados abaixo e o objeto aparece na página de achados na hora.</p>
+    </div>
+    <div class="form-layout">
+      <form class="panel form" id="objForm" novalidate>
+        <div class="field">
+          <label for="iNome">Nome do objeto <span class="req">*</span></label>
+          <input class="input" id="iNome" maxlength="60" placeholder="Ex.: Garrafa azul">
+          <span class="err" id="eNome" hidden>Escreva o nome do objeto.</span>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="iCat">Categoria</label>
+            <select class="input" id="iCat"></select>
+          </div>
+          <div class="field">
+            <label for="iData">Data em que encontrou <span class="req">*</span></label>
+            <input class="input" id="iData" type="date">
+            <span class="err" id="eData" hidden>Escolha a data.</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="iLocal">Local onde encontrou <span class="req">*</span></label>
+          <input class="input" id="iLocal" list="locais" maxlength="40" placeholder="Ex.: Biblioteca">
+          <datalist id="locais"></datalist>
+          <span class="err" id="eLocal" hidden>Diga onde o objeto foi encontrado.</span>
+        </div>
+        <div class="field">
+          <label for="iDesc">Descrição</label>
+          <textarea class="input" id="iDesc" maxlength="280" placeholder="Cor, marca, adesivos, o que tinha dentro… Detalhes ajudam o dono a reconhecer."></textarea>
+        </div>
+        <div class="field">
+          <span class="lbl">Foto (opcional)</span>
+          <div class="photo-drop">
+            <div class="photo-prev t-pink" id="photoPrev"></div>
+            <div class="photo-actions">
+              <label class="btn soft small" for="iFoto">Escolher foto</label>
+              <input id="iFoto" type="file" accept="image/*">
+              <button type="button" class="linkbtn" id="rmFoto" hidden>Remover foto</button>
+              <span class="hint" style="flex-basis:100%">Sem foto, o site usa um desenho do objeto.</span>
+            </div>
+          </div>
+        </div>
+        <fieldset class="status-pick" id="statusPick">
+          <legend>Status</legend>
+          <label><input type="radio" name="status" value="disponivel" id="st1"><b>Disponível</b>Esperando o dono</label>
+          <label><input type="radio" name="status" value="aguardando" id="st2"><b>Aguardando retirada</b>Dono identificado</label>
+          <label><input type="radio" name="status" value="devolvido" id="st3"><b>Devolvido</b>Já voltou pro dono</label>
+        </fieldset>
+        <div class="form-actions">
+          <button type="submit" class="btn primary" id="submitBtn">Cadastrar objeto</button>
+          <button type="button" class="btn ghost" id="cancelEdit" hidden>Cancelar edição</button>
+        </div>
+      </form>
+      <aside class="preview-side">
+        <p class="note">Assim vai aparecer no site ↓</p>
+        <div id="livePreview"></div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- GERENCIAR -->
+  <section data-view="gerenciar" hidden>
+    <div class="page-title">
+      <h1>Gerenciar objetos</h1>
+      <p>Área da pessoa responsável pelos achados: ver, editar, excluir e mudar o status de cada objeto.</p>
+    </div>
+    <div class="summary" id="summary"></div>
+    <div class="manage">
+      <div>
+        <div class="list" id="manageList"></div>
+        <div class="manage-foot">
+          <span>Tudo o que muda aqui fica salvo no banco de dados do servidor.</span>
+        </div>
+      </div>
+      <aside class="log">
+        <h3>Requisições da API</h3>
+        <p>Chamadas reais que o site fez para o backend, com a resposta do servidor.</p>
+        <ol id="logList"></ol>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p class="hand">Mais organização, mais chances de reencontrar o que é seu!</p>
+  <span>Achados e Perdidos · Node.js + Express + SQLite</span>
+</footer>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle" id="modal"></div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
